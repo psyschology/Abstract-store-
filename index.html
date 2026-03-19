@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Abstract Store | Coming Soon</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600&family=Syncopate:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.260.0/lucide.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Space Grotesk', 'sans-serif'],
+                        display: ['Syncopate', 'sans-serif'],
+                    },
+                    colors: {
+                        abstract: {
+                            purple: '#9b72cb',
+                            pink: '#f4c2d7',
+                            cyan: '#bce0e6',
+                            dark: '#050505',
+                            glass: 'rgba(255, 255, 255, 0.03)'
+                        }
+                    },
+                    animation: {
+                        'blob': 'blob 7s infinite',
+                        'fade-in-up': 'fadeInUp 1s ease-out forwards',
+                        'glow-pulse': 'glowPulse 3s infinite',
+                    },
+                    keyframes: {
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
+                        },
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        glowPulse: {
+                            '0%, 100%': { opacity: 0.5, filter: 'drop-shadow(0 0 10px rgba(155, 114, 203, 0.3))' },
+                            '50%': { opacity: 1, filter: 'drop-shadow(0 0 20px rgba(155, 114, 203, 0.8))' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #050505;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+        
+        /* Interactive background glow */
+        #glow {
+            position: fixed;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(155, 114, 203, 0.12) 0%, transparent 60%);
+            border-radius: 50%;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            z-index: 0;
+            transition: top 0.1s ease, left 0.1s ease;
+        }
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Hide scrollbar for clean look */
+        ::-webkit-scrollbar {
+            width: 0px;
+            background: transparent;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #9b72cb;
+            box-shadow: 0 0 15px rgba(155, 114, 203, 0.2);
+        }
+
+        /* Utility to strictly prevent selection */
+        .no-select {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col relative selection:bg-abstract-purple selection:text-white" oncontextmenu="return false;">
+
+    <!-- Mouse Follower Glow -->
+    <div id="glow" class="hidden md:block"></div>
+
+    <!-- Static Background Blobs for Mobile/Texture -->
+    <div class="fixed top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
+        <div class="absolute top-[-10%] left-[-10%] w-96 h-96 bg-abstract-purple opacity-20 rounded-full mix-blend-screen filter blur-[100px] animate-blob"></div>
+        <div class="absolute top-[20%] right-[-10%] w-96 h-96 bg-abstract-cyan opacity-20 rounded-full mix-blend-screen filter blur-[100px] animate-blob animation-delay-2000"></div>
+        <div class="absolute bottom-[-20%] left-[20%] w-96 h-96 bg-abstract-pink opacity-20 rounded-full mix-blend-screen filter blur-[100px] animate-blob animation-delay-4000"></div>
+    </div>
+
+    <!-- Navigation / Header -->
+    <header class="w-full p-6 md:p-10 flex justify-between items-center z-10 opacity-0 animate-[fadeInUp_1s_ease-out_0.2s_forwards]">
+        
+        <!-- SECURED LOGO SECTION -->
+        <!-- The oncontextmenu, draggable, and pointer-events-none classes prevent casual saving -->
+        <div class="flex items-center gap-4 group cursor-default no-select" oncontextmenu="return false;">
+            <div class="w-12 h-12 md:w-16 md:h-16 rounded-full overflow-hidden border border-abstract-purple/30 shadow-[0_0_15px_rgba(155,114,203,0.3)] relative">
+                <!-- Change "IMG-20260318-WA0007.jpg" to your transparent PNG file name when ready -->
+                <img 
+                    src="IMG-20260318-WA0007.jpg" 
+                    alt="The Abstract Store Logo" 
+                    class="w-full h-full object-cover pointer-events-none select-none"
+                    draggable="false"
+                    oncontextmenu="return false;"
+                >
+                <!-- Overlay to catch any stray clicks -->
+                <div class="absolute inset-0 bg-transparent pointer-events-auto" oncontextmenu="return false;"></div>
+            </div>
+            <div class="hidden md:block">
+                <h1 class="font-display text-sm md:text-base tracking-[0.2em] font-bold uppercase">The Abstract</h1>
+                <p class="text-[10px] text-gray-400 tracking-[0.3em] uppercase">Store</p>
+            </div>
+        </div>
+        
+        <div class="flex items-center gap-4">
+            <a href="#" class="text-xs tracking-widest text-gray-400 hover:text-white transition-colors duration-300 uppercase">Instagram</a>
+            <a href="#" class="text-xs tracking-widest text-gray-400 hover:text-white transition-colors duration-300 uppercase">Twitter</a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 z-10 relative mt-[-5vh]">
+        <div class="max-w-4xl mx-auto text-center">
+            
+            <div class="inline-block mb-4 px-3 py-1 border border-abstract-cyan/30 rounded-full glass-panel opacity-0 animate-[fadeInUp_1s_ease-out_0.4s_forwards]">
+                <span class="text-xs font-medium tracking-widest text-abstract-cyan uppercase">Redefining Men's Apparel</span>
+            </div>
+
+            <h2 class="font-display text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tighter mb-6 leading-[0.9] opacity-0 animate-[fadeInUp_1s_ease-out_0.6s_forwards]">
+                THE ART OF <br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-abstract-purple via-abstract-pink to-abstract-cyan">
+                    THE UNSEEN.
+                </span>
+            </h2>
+
+            <p class="text-gray-400 max-w-xl mx-auto text-sm md:text-base mb-12 tracking-wide leading-relaxed opacity-0 animate-[fadeInUp_1s_ease-out_0.8s_forwards]">
+                Forget the ordinary. We are blending premium high-street silhouettes with abstract artistry. Drop 001 is heavily guarded. Join the inner circle for exclusive early access.
+            </p>
+
+            <!-- COMING SOON DISPLAY -->
+            <div class="flex flex-col items-center justify-center mb-12 opacity-0 animate-[fadeInUp_1s_ease-out_1s_forwards]">
+                <div class="relative">
+                    <span class="font-display text-2xl md:text-4xl font-bold tracking-[0.4em] md:tracking-[0.8em] text-white uppercase ml-3 md:ml-6 animate-glow-pulse">
+                        Coming Soon
+                    </span>
+                    <div class="absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-24 h-[1px] bg-gradient-to-r from-transparent via-abstract-cyan to-transparent"></div>
+                </div>
+            </div>
+
+            <!-- Email Capture Form -->
+            <div class="w-full max-w-md mx-auto opacity-0 animate-[fadeInUp_1s_ease-out_1.2s_forwards]">
+                <form id="waitlist-form" class="relative group">
+                    <div class="absolute -inset-0.5 bg-gradient-to-r from-abstract-purple to-abstract-cyan rounded-lg blur opacity-30 group-hover:opacity-60 transition duration-1000 group-hover:duration-200"></div>
+                    <div class="relative flex items-center bg-black rounded-lg border border-gray-800 p-1">
+                        <i data-lucide="mail" class="w-5 h-5 text-gray-500 ml-3"></i>
+                        <input 
+                            type="email" 
+                            required
+                            placeholder="Enter your email address" 
+                            class="w-full bg-transparent text-white text-sm px-4 py-3 border-none focus:ring-0 placeholder-gray-600"
+                        >
+                        <button 
+                            type="submit" 
+                            class="bg-white text-black font-display font-bold text-xs uppercase tracking-wider px-6 py-3 rounded hover:bg-gray-200 transition-colors duration-300 flex-shrink-0"
+                        >
+                            Get Access
+                        </button>
+                    </div>
+                </form>
+                <p id="success-message" class="text-abstract-cyan text-sm mt-4 hidden transform transition-all">
+                    Welcome to the inner circle. Keep an eye on your inbox.
+                </p>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="w-full p-6 text-center z-10 opacity-0 animate-[fadeInUp_1s_ease-out_1.4s_forwards]">
+        <p class="text-[10px] text-gray-600 tracking-widest uppercase">&copy; 2026 The Abstract Store. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Mouse Follower Effect
+        const glow = document.getElementById('glow');
+        document.addEventListener('mousemove', (e) => {
+            glow.style.left = e.clientX + 'px';
+            glow.style.top = e.clientY + 'px';
+        });
+
+        // Form Submission Simulation
+        const form = document.getElementById('waitlist-form');
+        const successMessage = document.getElementById('success-message');
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const btn = form.querySelector('button');
+            const input = form.querySelector('input');
+            
+            btn.innerHTML = '<i data-lucide="loader-2" class="w-4 h-4 animate-spin mx-auto"></i>';
+            lucide.createIcons();
+            
+            setTimeout(() => {
+                form.style.display = 'none';
+                successMessage.classList.remove('hidden');
+                successMessage.classList.add('block', 'animate-[fadeInUp_0.5s_ease-out_forwards]');
+            }, 1500);
+        });
+        
+        // Prevent keyboard shortcuts for saving (Ctrl+S, Command+S)
+        document.addEventListener('keydown', function(e) {
+            if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+                e.preventDefault();
+            }
+        });
+    </script>
+</body>
+</html>
